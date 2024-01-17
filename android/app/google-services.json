@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "375849621262",
+    "project_id": "xavier-s-market-2621f",
+    "storage_bucket": "xavier-s-market-2621f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:375849621262:android:39d50c74a80c340d0de95f",
+        "android_client_info": {
+          "package_name": "com.example.xaviers_market"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA0SJmAEp7gbj8YJzq_HIQ7nDeDlIE0rYE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
