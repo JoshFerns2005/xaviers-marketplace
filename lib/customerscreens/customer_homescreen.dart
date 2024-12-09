@@ -752,7 +752,7 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      'Xavier\'s News',
+                                      'University News',
                                       style: GoogleFonts.raleway(
                                         fontSize: 20,
                                         fontWeight: FontWeight.bold,
@@ -777,9 +777,9 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
                                               MaterialPageRoute(
                                                 builder: (context) =>
                                                     NewsDetailsScreen(
-                                                  title: 'Malhar Gone Wild',
+                                                  title: 'Project Submission Comes Close',
                                                   imagePath:
-                                                      'assets/images/BLood_drive.jpeg',
+                                                      'assets/images/studying.jpeg',
                                                   content:
                                                       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua..',
                                                 ),
@@ -802,7 +802,7 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
                                             ),
                                             child: Image(
                                               image: AssetImage(
-                                                  'assets/images/BLood_drive.jpeg'),
+                                                  'assets/images/studying.jpeg'),
                                               fit: BoxFit.fill,
                                             ),
                                           ),
@@ -814,9 +814,9 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
                                               MaterialPageRoute(
                                                 builder: (context) =>
                                                     NewsDetailsScreen(
-                                                  title: 'TedX Xaviers',
+                                                  title: 'Our Biggest Event',
                                                   imagePath:
-                                                      'assets/images/BLood_drive.jpeg',
+                                                      'assets/images/college_fest.jpeg',
                                                   content:
                                                         'TEDxXaviers is an annual event held at Xaviers College in Mumbai, India, showcasing a diverse range of ideas and innovations through the platform of TED Talks. The event brings together a community of passionate individuals, speakers, and attendees who share a common goal of inspiring positive change and fostering intellectual discourse. One of the defining characteristics of TEDxXaviers is its commitment to providing a platform for individuals from various backgrounds and disciplines to share their unique perspectives and experiences. From technology and science to art, culture, and social issues, TEDxXaviers covers a wide array of topics that are both thought-provoking and relevant to contemporary society. The event typically features a series of talks given by speakers who are experts in their respective fields or individuals with compelling stories to share. These talks are designed to be engaging, informative, and inspirational, aiming to spark curiosity and encourage critical thinking among the audience. Moreover, TEDxXaviers serves as a catalyst for meaningful conversations and connections. Attendees have the opportunity to interact with speakers, exchange ideas with fellow participants, and engage in discussions that transcend the boundaries of traditional academic disciplines. This collaborative environment fosters creativity, innovation, and collaboration, laying the groundwork for positive change in the world. Beyond the talks themselves, TEDxXaviers also incorporates interactive activities, performances, and workshops that enhance the overall experience for attendees. These elements add depth and richness to the event, allowing participants to immerse themselves fully in the ideas and themes being presented. In addition to its impact on the local community, TEDxXaviers also extends its reach through live streaming and social media, allowing individuals from around the world to tune in and participate virtually. This global perspective amplifies the influence of the event, enabling it to reach a broader audience and inspire change on a global scale. Overall, TEDxXaviers is more than just a series of talks; it is a platform for innovation, inspiration, and transformation. By bringing together diverse voices and ideas, TEDxXaviers empowers individuals to think critically, act boldly, and make a positive difference in the world.',
 
@@ -840,7 +840,7 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
                                             ),
                                             child: Image(
                                               image: AssetImage(
-                                                  'assets/images/Tedx.jpeg'),
+                                                  'assets/images/college_fest.jpeg'),
                                               fit: BoxFit.fill,
                                             ),
                                           ),
@@ -852,9 +852,9 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
                                               MaterialPageRoute(
                                                 builder: (context) =>
                                                     NewsDetailsScreen(
-                                                  title: 'Malhar Gone Wild',
+                                                  title: 'Sports Day this Week',
                                                   imagePath:
-                                                      'assets/images/BLood_drive.jpeg',
+                                                      'assets/images/sports.jpeg',
                                                   content:
                                                       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua..',
                                                 ),
@@ -877,7 +877,7 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
                                             ),
                                             child: Image(
                                               image: AssetImage(
-                                                  'assets/images/Tedx.jpeg'),
+                                                  'assets/images/sports.jpeg'),
                                               fit: BoxFit.fill,
                                             ),
                                           ),

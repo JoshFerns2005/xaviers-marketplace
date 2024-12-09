@@ -107,7 +107,7 @@ class SplashScreenState extends State<SplashScreen>
                 height: MediaQuery.of(context).size.height *
                     0.01), // Adjust the spacing between the image and text
             const Text(
-              "Xavier's Marketplace",
+              "StallMart",
               style: TextStyle(
                 fontStyle: FontStyle.italic,
                 color: const Color.fromARGB(255, 126, 70, 62),

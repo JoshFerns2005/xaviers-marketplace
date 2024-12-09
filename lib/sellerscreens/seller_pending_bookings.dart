@@ -396,6 +396,7 @@ class _SellerPendingBookingsScreenState
                                                                   'carts')
                                                               .doc(cart.id)
                                                               .set({
+                                                            'bookNow': false,
                                                             'checkoutTime': '',
                                                             'isBooked': false,
                                                             'sellerId':

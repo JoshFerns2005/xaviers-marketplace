@@ -281,6 +281,7 @@ class _PendingBookingsScreenState extends State<PendingBookingsScreen> {
                                                 .collection('carts')
                                                 .doc(doc.id)
                                                 .set({
+                                              'bookNow': false,
                                               'checkoutTime': '',
                                               'isBooked': false,
                                               'sellerId': sellerId,

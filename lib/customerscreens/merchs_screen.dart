@@ -101,7 +101,7 @@ class MerchsScreen extends StatelessWidget {
                             padding: const EdgeInsets.symmetric(horizontal: 10.0),
                             child: Container(
                               width: double.infinity,
-                              height: 165.0,
+                              height: 160.0,
                               decoration: BoxDecoration(
                                 color: Colors.black,
                                 borderRadius: BorderRadius.circular(10.0),
