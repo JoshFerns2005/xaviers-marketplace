@@ -25,6 +25,7 @@ class _CreateAccountScreenState extends State<CreateAccountSellerScreen> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final passwordRetypeController = TextEditingController();
+  bool _isLoading = false;
 
   String? validateName(String? name) {
     RegExp nameRegex = RegExp(r'^[a-zA-Z ]+$');
@@ -100,6 +101,11 @@ class _CreateAccountScreenState extends State<CreateAccountSellerScreen> {
   }
 
   void handleSellerSignUp() async {
+
+    setState(() {
+      _isLoading = true; // Start loading when the button is clicked
+    });
+
     try {
       User? signedUpUser = await signUpAsSeller(
         emailController.text,
@@ -109,17 +115,51 @@ class _CreateAccountScreenState extends State<CreateAccountSellerScreen> {
       );
 
       if (signedUpUser != null) {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const SellerSignInScreen(),
-          ),
-        );
-        print('Seller signed up successfully');
-      } else {
-        print('Error during seller sign-up');
+      showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) {
+          return AlertDialog(
+            title: const Text('Success'),
+            content: const Text('Account created successfully!'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop(); // Close the dialog
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const SellerSignInScreen(),
+                    ),
+                  );
+                },
+                child: const Text('OK'),
+              ),
+            ],
+          );
+        },
+      );
+    } else {
+      // Handle cases where sign-up failed
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Error during seller sign-up'),
+          backgroundColor: Colors.red,
+        ),
+      );
       }
     } catch (error) {
+      // Handle sign-up errors
+      setState(() {
+        _isLoading = false; // Stop loading in case of error
+      });
+      // Show error in a Snackbar
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Error during customer sign-up: $error'),
+          backgroundColor: Colors.red,
+        ),
+      );
       print('Error during seller sign-up: $error');
     }
   }
@@ -256,19 +296,29 @@ class _CreateAccountScreenState extends State<CreateAccountSellerScreen> {
                       ),
                     ),
                     const SizedBox(height: 16),
-                    ElevatedButton(
-                      onPressed: () {
-                        if (_formKey1.currentState!.validate()) {
-                          handleSellerSignUp();
-                        } else {
-                          print(
-                              'Form validation failed'); // Add a print statement for debugging
-                        }
-                      },
-                      style: ElevatedButton.styleFrom(
-                        foregroundColor: Colors.white, backgroundColor: Colors.brown,
-                      ),
-                      child: const Text('Confirm'),
+                    Stack(
+                      children: [
+                        ElevatedButton(
+                          onPressed: _isLoading ? null : () {
+                            if (_formKey1.currentState!.validate()) {
+                              handleSellerSignUp();
+                            } else {
+                              print(
+                                  'Form validation failed'); // Add a print statement for debugging
+                            }
+                          },
+                          style: ElevatedButton.styleFrom(
+                            foregroundColor: Colors.white, backgroundColor: Colors.brown,
+                          ),
+                          child: const Text('Confirm'),
+                        ),
+                        if (_isLoading)
+                        const Center(
+                          child: CircularProgressIndicator(
+                            color: Colors.brown,
+                          ),
+                        ),
+                      ],
                     ),
                     Center(
                       child: Container(

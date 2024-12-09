@@ -19,6 +19,7 @@ class _SignInScreenState extends State<SignInScreen> {
   var emailController = TextEditingController();
   var passwordController = TextEditingController();
   bool rememberMe = false;
+  bool _isLoading = false;
 
   bool _isSecurePassword = true;
   Timer? _timer;

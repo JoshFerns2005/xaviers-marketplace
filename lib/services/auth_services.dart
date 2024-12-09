@@ -130,6 +130,7 @@ Future<void> signInAsSeller(String email, String password, BuildContext context,
 
 // During user sign-in as customer
 Future<void> signInAsCustomer(String email, String password, BuildContext context, bool rememberMe) async {
+  
   try {
     UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: password);
 

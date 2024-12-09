@@ -99,7 +99,7 @@ class SplashScreenState extends State<SplashScreen>
               height: MediaQuery.of(context).size.height *
                   0.3, // Adjust the height of the image
               child: Image.asset(
-                'assets/images/XLogo.png', // Replace with your image path
+                'assets/images/logo.png', // Replace with your image path
                 fit: BoxFit.contain,
               ),
             ),
@@ -107,13 +107,14 @@ class SplashScreenState extends State<SplashScreen>
                 height: MediaQuery.of(context).size.height *
                     0.01), // Adjust the spacing between the image and text
             const Text(
-              "StallMart",
+              "Campus Shopping, Redefined.",
               style: TextStyle(
                 fontStyle: FontStyle.italic,
                 color: const Color.fromARGB(255, 126, 70, 62),
                 fontSize: 30,
                 fontWeight: FontWeight.bold, // Adjust the font size
               ),
+              textAlign: TextAlign.center,
             ),
           ],
         ),

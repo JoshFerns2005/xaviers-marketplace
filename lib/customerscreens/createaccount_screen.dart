@@ -23,6 +23,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
   var emailController = TextEditingController();
   var passwordController = TextEditingController();
   var passwordRetypeController = TextEditingController();
+  bool _isLoading = false;
 
   String? validateName(String? name) {
     RegExp nameRegex = RegExp(r'^[a-z A-Z]+$');
@@ -104,6 +105,13 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
   }
 
   void handleCustomerSignUp() async {
+
+
+    setState(() {
+      _isLoading = true; // Start loading when the button is clicked
+    });
+
+
     try {
       User? signedUpUser = await signUpAsCustomer(
         emailController.text,
@@ -112,23 +120,58 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
         mobController.text,
       );
 
+      setState(() {
+        _isLoading = false; // Stop loading once sign-up is complete
+      });
+
       if (signedUpUser != null) {
-        // If the sign-up is successful, you can proceed with additional actions,
-        // such as navigating to the customer's home screen or displaying a success message.
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const SignInScreen(),
-          ),
-        );
-        print('Customer signed up successfully');
-      } else {
-        // Handle scenarios where sign-up failed
-        print('Error during customer sign-up');
-      }
+      showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) {
+          return AlertDialog(
+            title: const Text('Success'),
+            content: const Text('Account created successfully!'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop(); // Close the dialog
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const SignInScreen(),
+                    ),
+                  );
+                },
+                child: const Text('OK'),
+              ),
+            ],
+          );
+        },
+      );
+    } else {
+      // Handle cases where sign-up failed
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Error during customer sign-up'),
+          backgroundColor: Colors.red,
+        ),
+      );
+    }
     } catch (error) {
       // Handle sign-up errors
+      setState(() {
+        _isLoading = false; // Stop loading in case of error
+      });
+      // Show error in a Snackbar
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Error during customer sign-up: $error'),
+          backgroundColor: Colors.red,
+        ),
+      );
       print('Error during customer sign-up: $error');
+
     }
   }
 
@@ -220,18 +263,31 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                       suffixIcon: togglePassword(),
                     ),
                     const SizedBox(height: 16),
-                    ElevatedButton(
-                      onPressed: () {
-                        if (_formKey2.currentState!.validate()) {
-                          handleCustomerSignUp();
-                        } else {
-                          print('Form validation failed'); // Add a print statement for debugging
-                        }
-                      },
-                      style: ElevatedButton.styleFrom(
-                        foregroundColor: Colors.white, backgroundColor: Colors.brown,
+                    Stack(
+                      children: [
+                        ElevatedButton(
+                        onPressed: _isLoading
+                            ? null // Disable the button when loading
+                            : () {
+                                if (_formKey2.currentState!.validate()) {
+                                  handleCustomerSignUp();
+                                } else {
+                                  print('Form validation failed');
+                                }
+                              },
+                        style: ElevatedButton.styleFrom(
+                          foregroundColor: Colors.white,
+                          backgroundColor: Colors.brown,
+                        ),
+                        child: const Text('Confirm'),
                       ),
-                      child: const Text('Confirm'),
+                      if (_isLoading)
+                        const Center(
+                          child: CircularProgressIndicator(
+                            color: Colors.brown,
+                          ),
+                        ),
+                      ],
                     ),
                     Center(
                       child: Container(
