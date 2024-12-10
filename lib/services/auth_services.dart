@@ -14,11 +14,9 @@ class HiveBoxes {
   static Box<String> userBox = Hive.box<String>('userBox');
 
   Future<void> signIn(String authToken) async {
-  HiveBoxes.userBox.put('authToken', authToken);
+    HiveBoxes.userBox.put('authToken', authToken);
+  }
 }
-
-}
-
 
 Future<User?> signUpAsSeller(
     String email, String password, String name, String mob) async {
@@ -69,9 +67,11 @@ Future<User?> signUpAsCustomer(
   }
 }
 
-Future<void> signInAsSeller(String email, String password, BuildContext context, bool rememberMe) async {
+Future<void> signInAsSeller(String email, String password, BuildContext context,
+    bool rememberMe) async {
   try {
-    UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: password);
+    UserCredential userCredential = await FirebaseAuth.instance
+        .signInWithEmailAndPassword(email: email, password: password);
 
     String? authToken = userCredential.user?.refreshToken;
     if (authToken != null) {
@@ -81,7 +81,10 @@ Future<void> signInAsSeller(String email, String password, BuildContext context,
     }
 
     // Retrieve user data from Firestore
-    DocumentSnapshot userDoc = await FirebaseFirestore.instance.collection('users').doc(userCredential.user!.uid).get();
+    DocumentSnapshot userDoc = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(userCredential.user!.uid)
+        .get();
     String userId = userDoc.id;
 
     // Check the boolean field to determine the user's role
@@ -91,28 +94,29 @@ Future<void> signInAsSeller(String email, String password, BuildContext context,
       // The user is a seller, proceed with sign-in
       print('User is a seller');
       if (rememberMe == true) {
-      await FirebaseMessaging.instance.subscribeToTopic('customers');
-      // Open the Hive box to store user data
-      var box = await Hive.openBox('userBox');
-      box.put('userId', userId);
-      box.put('isSignedIn', true);
-      box.put('isSeller', true);
+        await FirebaseMessaging.instance.subscribeToTopic('customers');
+        // Open the Hive box to store user data
+        var box = await Hive.openBox('userBox');
+        box.put('userId', userId);
+        box.put('isSignedIn', true);
+        box.put('isSeller', true);
 
-      // Navigate to the seller home screen and pass the document ID
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) => BottomNavigation(userId), // Pass document ID to SellerHomeScreen
-        ),
-      );
-      }
-      else {
+        // Navigate to the seller home screen and pass the document ID
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => BottomNavigation(
+                userId), // Pass document ID to SellerHomeScreen
+          ),
+        );
+      } else {
         await FirebaseMessaging.instance.subscribeToTopic('customers');
         // Navigate to the seller home screen and pass the document ID
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) => BottomNavigation(userId), // Pass document ID to SellerHomeScreen
+            builder: (context) => BottomNavigation(
+                userId), // Pass document ID to SellerHomeScreen
           ),
         );
       }
@@ -126,16 +130,18 @@ Future<void> signInAsSeller(String email, String password, BuildContext context,
   }
 }
 
-
-
 // During user sign-in as customer
-Future<void> signInAsCustomer(String email, String password, BuildContext context, bool rememberMe) async {
-  
+Future<void> signInAsCustomer(String email, String password,
+    BuildContext context, bool rememberMe) async {
   try {
-    UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: password);
+    UserCredential userCredential = await FirebaseAuth.instance
+        .signInWithEmailAndPassword(email: email, password: password);
 
     // Retrieve user data from Firestore
-    DocumentSnapshot userDoc = await FirebaseFirestore.instance.collection('users').doc(userCredential.user!.uid).get();
+    DocumentSnapshot userDoc = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(userCredential.user!.uid)
+        .get();
     String userId = userDoc.id;
 
     // Check the boolean field to determine the user's role
@@ -152,32 +158,65 @@ Future<void> signInAsCustomer(String email, String password, BuildContext contex
         box.put('isSeller', false);
         await FirebaseMessaging.instance.subscribeToTopic('customers');
 
-
-        // Navigate to the seller home screen and pass the document ID
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => customerBottomNavigation(userId), // Pass document ID to SellerHomeScreen
-          ),
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: const Text('Success'),
+              content: Text("Log In Successful"),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    // Navigate to the seller home screen and pass the document ID
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => customerBottomNavigation(
+                            userId), // Pass document ID to SellerHomeScreen
+                      ),
+                    );
+                  },
+                  child: const Text('OK'),
+                ),
+              ],
+            );
+          },
         );
-      }
-      else {
+      } else {
         await FirebaseMessaging.instance.subscribeToTopic('customers');
-        // Navigate to the seller home screen and pass the document ID
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => customerBottomNavigation(userId), // Pass document ID to SellerHomeScreen
-          ),
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: const Text('Success'),
+              content: Text("Log In Successful"),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    // Navigate to the seller home screen and pass the document ID
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => customerBottomNavigation(
+                            userId), // Pass document ID to SellerHomeScreen
+                      ),
+                    );
+                  },
+                  child: const Text('OK'),
+                ),
+              ],
+            );
+          },
         );
       }
     } else {
       // The user is a seller, sign them out
       await FirebaseAuth.instance.signOut();
       print('User is a seller. Customer sign-in only.');
+      throw Exception('User is a seller. Customer sign-in only.');
     }
   } catch (error) {
     print('Error signing in as customer: $error');
+    throw Exception('Error signing in: $error');
   }
 }
-

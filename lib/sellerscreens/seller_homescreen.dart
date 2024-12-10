@@ -179,7 +179,7 @@ class _SellerHomeScreenState extends State<SellerHomeScreen> {
             ),
             SizedBox(height: 20),
             Text(
-              'Xavier\'s News',
+              'University News',
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
@@ -201,42 +201,8 @@ class _SellerHomeScreenState extends State<SellerHomeScreen> {
                       context,
                       MaterialPageRoute(
                         builder: (context) => NewsDetailsScreen(
-                          title: 'Tedx',
-                          imagePath: 'assets/images/Tedx.jpeg',
-                          content:
-                              'TEDxXaviers is an annual event held at Xaviers College in Mumbai, India, showcasing a diverse range of ideas and innovations through the platform of TED Talks. The event brings together a community of passionate individuals, speakers, and attendees who share a common goal of inspiring positive change and fostering intellectual discourse. One of the defining characteristics of TEDxXaviers is its commitment to providing a platform for individuals from various backgrounds and disciplines to share their unique perspectives and experiences. From technology and science to art, culture, and social issues, TEDxXaviers covers a wide array of topics that are both thought-provoking and relevant to contemporary society. The event typically features a series of talks given by speakers who are experts in their respective fields or individuals with compelling stories to share. These talks are designed to be engaging, informative, and inspirational, aiming to spark curiosity and encourage critical thinking among the audience. Moreover, TEDxXaviers serves as a catalyst for meaningful conversations and connections. Attendees have the opportunity to interact with speakers, exchange ideas with fellow participants, and engage in discussions that transcend the boundaries of traditional academic disciplines. This collaborative environment fosters creativity, innovation, and collaboration, laying the groundwork for positive change in the world. Beyond the talks themselves, TEDxXaviers also incorporates interactive activities, performances, and workshops that enhance the overall experience for attendees. These elements add depth and richness to the event, allowing participants to immerse themselves fully in the ideas and themes being presented. In addition to its impact on the local community, TEDxXaviers also extends its reach through live streaming and social media, allowing individuals from around the world to tune in and participate virtually. This global perspective amplifies the influence of the event, enabling it to reach a broader audience and inspire change on a global scale. Overall, TEDxXaviers is more than just a series of talks; it is a platform for innovation, inspiration, and transformation. By bringing together diverse voices and ideas, TEDxXaviers empowers individuals to think critically, act boldly, and make a positive difference in the world.',
-                        ),
-                      ),
-                    );
-                  },
-                  child: Container(
-                    height: double.infinity,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(
-                          spreadRadius: 3,
-                          blurRadius: 5,
-                          color: Colors.black,
-                          offset: Offset(0, 3),
-                        )
-                      ],
-                    ),
-                    child: Image(
-                      image: AssetImage('assets/images/Tedx.jpeg'),
-                      fit: BoxFit.fill,
-                    ),
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => NewsDetailsScreen(
-                          title: 'Malhar Gone Wild',
-                          imagePath: 'assets/images/BLood_drive.jpeg',
+                          title: 'Project Submission Comes Close',
+                          imagePath: 'assets/images/studying.jpeg',
                           content:
                               'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua..',
                         ),
@@ -258,7 +224,7 @@ class _SellerHomeScreenState extends State<SellerHomeScreen> {
                       ],
                     ),
                     child: Image(
-                      image: AssetImage('assets/images/BLood_drive.jpeg'),
+                      image: AssetImage('assets/images/studying.jpeg'),
                       fit: BoxFit.fill,
                     ),
                   ),
@@ -269,8 +235,8 @@ class _SellerHomeScreenState extends State<SellerHomeScreen> {
                       context,
                       MaterialPageRoute(
                         builder: (context) => NewsDetailsScreen(
-                          title: 'Malhar Gone Wild',
-                          imagePath: 'assets/images/BLood_drive.jpeg',
+                          title: 'Our Biggest Event',
+                          imagePath: 'assets/images/college_fest.jpeg',
                           content:
                               'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua..',
                         ),
@@ -292,7 +258,41 @@ class _SellerHomeScreenState extends State<SellerHomeScreen> {
                       ],
                     ),
                     child: Image(
-                      image: AssetImage('assets/images/BLood_drive.jpeg'),
+                      image: AssetImage('assets/images/college_fest.jpeg'),
+                      fit: BoxFit.fill,
+                    ),
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => NewsDetailsScreen(
+                          title: 'Sports Day this Week',
+                          imagePath: 'assets/images/sports.jpeg',
+                          content:
+                              'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua..',
+                        ),
+                      ),
+                    );
+                  },
+                  child: Container(
+                    height: double.infinity,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                          spreadRadius: 3,
+                          blurRadius: 5,
+                          color: Colors.black,
+                          offset: Offset(0, 3),
+                        )
+                      ],
+                    ),
+                    child: Image(
+                      image: AssetImage('assets/images/sports.jpeg'),
                       fit: BoxFit.fill,
                     ),
                   ),

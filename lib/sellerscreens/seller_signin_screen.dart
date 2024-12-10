@@ -18,6 +18,7 @@ class _SignInScreenState extends State<SellerSignInScreen> {
   var emailController = TextEditingController();
   var passwordController = TextEditingController();
   bool rememberMe = false;
+  bool isLoading = false;
 
   bool _isSecurePasswordSeller = true;
   Timer? _timer;
@@ -115,45 +116,80 @@ class _SignInScreenState extends State<SellerSignInScreen> {
                         ),
                       ),
                       Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(left: 8.0),
-                        child: Text(
-                          'Remember Me',
-                          style: GoogleFonts.raleway(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: Color.fromARGB(255, 0, 0, 0),
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(left: 8.0),
+                            child: Text(
+                              'Remember Me',
+                              style: GoogleFonts.raleway(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                                color: Color.fromARGB(255, 0, 0, 0),
+                              ),
+                            ),
                           ),
-                        ),
+                          Checkbox(
+                            value: rememberMe,
+                            activeColor: Colors.brown,
+                            onChanged: (value) {
+                              setState(() {
+                                rememberMe = value!;
+                              });
+                            },
+                          ),
+                        ],
                       ),
-                      Checkbox(
-                        value: rememberMe,
-                        activeColor: Colors.brown,
-                        onChanged: (value) {
-                          setState(() {
-                            rememberMe = value!;
-                          });
-                        },
-                      ),
-                    ],
-                  ),
-                      ElevatedButton(
-                        onPressed: () async {
-                          await signInAsSeller(
-                            emailController.text,
-                            passwordController.text,
-                            context,
-                            rememberMe
-                          );
-                        },
-                        style: ElevatedButton.styleFrom(
-                          foregroundColor: Colors.black, backgroundColor: const Color.fromARGB(255, 126, 70, 62),
-                        ),
-                        child: const Text(
-                          'Log In',
-                          style: TextStyle(color: Colors.white),
-                        ),
+                      Stack(
+                        children: [
+                          ElevatedButton(
+                            onPressed: isLoading ? null : () async {
+
+                              
+
+                              setState(() {
+                              isLoading = true; // Show the loading indicator
+                            });
+
+                            try {
+                              await signInAsSeller(emailController.text,
+                                passwordController.text, context,rememberMe); // Call your sign-up function
+                                
+                            } catch (e) {
+                              // Handle any errors during sign-up (optional)
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    title: const Text('Error'),
+                                    content: Text(e.toString()),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                        },
+                                        child: const Text('OK'),
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+                            } finally {
+                              setState(() {
+                                isLoading = false; // Hide the loading indicator
+                              });
+                            }
+                            },
+                            style: ElevatedButton.styleFrom(
+                              foregroundColor: Colors.black,
+                              backgroundColor:
+                                  const Color.fromARGB(255, 126, 70, 62),
+                            ),
+                            child: const Text(
+                              'Log In',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ),
+                        ],
                       ),
                       const SizedBox(height: 5),
                       Center(

@@ -135,18 +135,61 @@ class _SignInScreenState extends State<SignInScreen> {
                       ),
                     ],
                   ),
-                    ElevatedButton(
-                      onPressed: () async {
-                        await signInAsCustomer(emailController.text,
-                            passwordController.text, context,rememberMe);
-                      },
-                      style: ElevatedButton.styleFrom(
-                        foregroundColor: Colors.white, backgroundColor: Colors.brown,
-                      ),
-                      child: const Text(
-                        'Sign In',
-                        style: TextStyle(color: Colors.white),
-                      ),
+                    Stack(
+                      children: [
+                        ElevatedButton(
+                          onPressed: _isLoading ? null : () async {
+
+                            setState(() {
+                              _isLoading = true; // Show the loading indicator
+                            });
+
+                            try {
+                              await signInAsCustomer(emailController.text,
+                                passwordController.text, context,rememberMe); // Call your sign-up function
+                                
+                            } catch (e) {
+                              // Handle any errors during sign-up (optional)
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    title: const Text('Error'),
+                                    content: Text(e.toString()),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                        },
+                                        child: const Text('OK'),
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+                            } finally {
+                              setState(() {
+                                _isLoading = false; // Hide the loading indicator
+                              });
+                            }
+
+                            
+                          },
+                          style: ElevatedButton.styleFrom(
+                            foregroundColor: Colors.white, backgroundColor: Colors.brown,
+                          ),
+                          child: const Text(
+                            'Sign In',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ),
+                        if (_isLoading)
+                        const Center(
+                          child: CircularProgressIndicator(
+                            color: Colors.brown,
+                          ),
+                        ),
+                      ],
                     ),
                     const SizedBox(height: 5),
                     Center(
