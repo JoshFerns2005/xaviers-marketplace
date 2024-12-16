@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:xaviers_market/customerscreens/phonepe.dart';
 
 class Cart extends StatefulWidget {
   final String userId;
@@ -378,82 +379,49 @@ class _CartState extends State<Cart> {
                                                           ),
                                                         ],
                                                       ),
-                                                      GestureDetector(
-                                                        onTap: () {
-                                                          showDialog(
-                                                            context: context,
-                                                            builder:
-                                                                (BuildContext
-                                                                    context) {
-                                                              return AlertDialog(
-                                                                title: Text(
-                                                                    "Remove Product"),
-                                                                content: Text(
-                                                                    "Do you want to remove this product?"),
-                                                                actions: <Widget>[
-                                                                  TextButton(
-                                                                    onPressed:
-                                                                        () {
-                                                                      Navigator.of(
-                                                                              context)
-                                                                          .pop(
-                                                                              false);
-                                                                    },
-                                                                    child: Text(
-                                                                        "No"),
-                                                                  ),
-                                                                  TextButton(
-                                                                    onPressed:
-                                                                        () {
-                                                                      Navigator.of(
-                                                                              context)
-                                                                          .pop(
-                                                                              true);
-                                                                    },
-                                                                    child: Text(
-                                                                        "Yes"),
-                                                                  ),
-                                                                ],
-                                                              );
-                                                            },
-                                                          ).then((value) async {
-                                                            if (value != null &&
-                                                                value) {
-                                                              // Remove the product
-                                                              FirebaseFirestore
-                                                                  .instance
-                                                                  .collection(
-                                                                      'users')
-                                                                  .doc(widget
-                                                                      .userId)
-                                                                  .collection(
-                                                                      'carts')
-                                                                  .doc(cartDoc
-                                                                      .id)
-                                                                  .collection(
-                                                                      'products')
-                                                                  .doc(
-                                                                      productId)
-                                                                  .delete();
-
-                                                              FirebaseFirestore
-                                                                  .instance
-                                                                  .collection(
-                                                                      'users')
-                                                                  .doc(widget
-                                                                      .userId)
-                                                                  .collection(
-                                                                      'carts')
-                                                                  .doc(cartDoc
-                                                                      .id)
-                                                                  .collection(
-                                                                      'products')
-                                                                  .get()
-                                                                  .then(
-                                                                      (querySnapshot) {
-                                                                if (querySnapshot
-                                                                    .docs
-                                                                    .isEmpty) {
+                                                      Row(
+                                                        children: [
+                                                          GestureDetector(
+                                                            onTap: () {
+                                                              showDialog(
+                                                                context:
+                                                                    context,
+                                                                builder:
+                                                                    (BuildContext
+                                                                        context) {
+                                                                  return AlertDialog(
+                                                                    title: Text(
+                                                                        "Remove Product"),
+                                                                    content: Text(
+                                                                        "Do you want to remove this product?"),
+                                                                    actions: <Widget>[
+                                                                      TextButton(
+                                                                        onPressed:
+                                                                            () {
+                                                                          Navigator.of(context)
+                                                                              .pop(false);
+                                                                        },
+                                                                        child: Text(
+                                                                            "No"),
+                                                                      ),
+                                                                      TextButton(
+                                                                        onPressed:
+                                                                            () {
+                                                                          Navigator.of(context)
+                                                                              .pop(true);
+                                                                        },
+                                                                        child: Text(
+                                                                            "Yes"),
+                                                                      ),
+                                                                    ],
+                                                                  );
+                                                                },
+                                                              ).then(
+                                                                  (value) async {
+                                                                if (value !=
+                                                                        null &&
+                                                                    value) {
+                                                                  // Remove the product
                                                                   FirebaseFirestore
                                                                       .instance
                                                                       .collection(
@@ -464,27 +432,81 @@ class _CartState extends State<Cart> {
                                                                           'carts')
                                                                       .doc(cartDoc
                                                                           .id)
+                                                                      .collection(
+                                                                          'products')
+                                                                      .doc(
+                                                                          productId)
                                                                       .delete();
+
+                                                                  FirebaseFirestore
+                                                                      .instance
+                                                                      .collection(
+                                                                          'users')
+                                                                      .doc(widget
+                                                                          .userId)
+                                                                      .collection(
+                                                                          'carts')
+                                                                      .doc(cartDoc
+                                                                          .id)
+                                                                      .collection(
+                                                                          'products')
+                                                                      .get()
+                                                                      .then(
+                                                                          (querySnapshot) {
+                                                                    if (querySnapshot
+                                                                        .docs
+                                                                        .isEmpty) {
+                                                                      FirebaseFirestore
+                                                                          .instance
+                                                                          .collection(
+                                                                              'users')
+                                                                          .doc(widget
+                                                                              .userId)
+                                                                          .collection(
+                                                                              'carts')
+                                                                          .doc(cartDoc
+                                                                              .id)
+                                                                          .delete();
+                                                                    }
+                                                                  });
+
+                                                                  ScaffoldMessenger.of(
+                                                                          context)
+                                                                      .showSnackBar(
+                                                                    SnackBar(
+                                                                      content: Text(
+                                                                          'Product Removed from Cart'),
+                                                                    ),
+                                                                  );
+                                                                  setState(
+                                                                      () {});
                                                                 }
                                                               });
-
-                                                              ScaffoldMessenger
-                                                                      .of(context)
-                                                                  .showSnackBar(
-                                                                SnackBar(
-                                                                  content: Text(
-                                                                      'Product Removed from Cart'),
+                                                            },
+                                                            child: FaIcon(
+                                                              FontAwesomeIcons
+                                                                  .trash,
+                                                              size: 20,
+                                                            ),
+                                                          ),
+                                                          IconButton(
+                                                            icon: Icon(Icons
+                                                                .add_circle),
+                                                            onPressed: () {
+                                                              print(
+                                                                  "BUTTON PRESSED!!!!");
+                                                              Navigator.push(
+                                                                context,
+                                                                MaterialPageRoute(
+                                                                  builder: (context) =>
+                                                                      PhonePePayment(
+                                                                          widget
+                                                                              .userId),
                                                                 ),
                                                               );
-                                                              setState(() {});
-                                                            }
-                                                          });
-                                                        },
-                                                        child: FaIcon(
-                                                          FontAwesomeIcons
-                                                              .trash,
-                                                          size: 20,
-                                                        ),
+                                                            },
+                                                          ),
+                                                        ],
                                                       ),
                                                     ],
                                                   ),

@@ -9,13 +9,20 @@ import 'customer_homescreen.dart';
 
 class customerBottomNavigation extends StatefulWidget {
   final String userId;
-  const customerBottomNavigation(this.userId);
+  final int page;
+  const customerBottomNavigation(this.userId, this.page);
   @override
   _BottomNavigationState createState() => _BottomNavigationState();
 }
 
 class _BottomNavigationState extends State<customerBottomNavigation> {
-  int _currentIndex = 0;
+  late int _currentIndex; // Declare _currentIndex
+
+  @override
+  void initState() {
+    super.initState();
+    _currentIndex = widget.page; // Initialize _currentIndex with the passed page
+  }
 
   @override
   Widget build(BuildContext context) {

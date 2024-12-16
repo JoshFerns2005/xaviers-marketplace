@@ -60,7 +60,7 @@ class SplashScreenState extends State<SplashScreen>
         SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual);
         Future.delayed(const Duration(seconds: 5), () {
           Navigator.of(context).pushReplacement(MaterialPageRoute(
-            builder: (_) => customerBottomNavigation(userId!),
+            builder: (_) => customerBottomNavigation(userId!, 0),
           ));
         });
         print('User is signed in as a customer with userId: $userId');

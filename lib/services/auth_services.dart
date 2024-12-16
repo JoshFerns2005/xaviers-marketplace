@@ -172,7 +172,7 @@ Future<void> signInAsCustomer(String email, String password,
                       context,
                       MaterialPageRoute(
                         builder: (context) => customerBottomNavigation(
-                            userId), // Pass document ID to SellerHomeScreen
+                            userId, 0), // Pass document ID to SellerHomeScreen
                       ),
                     );
                   },
@@ -198,7 +198,7 @@ Future<void> signInAsCustomer(String email, String password,
                       context,
                       MaterialPageRoute(
                         builder: (context) => customerBottomNavigation(
-                            userId), // Pass document ID to SellerHomeScreen
+                            userId, 0), // Pass document ID to SellerHomeScreen
                       ),
                     );
                   },
